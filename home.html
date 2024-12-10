@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/logo.png">
 
     <!-- Montserrat Font Import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,15 +16,14 @@
 
 <!-- Home Page: DONE BY Agon Shehu -->
 <body>
-
-    <!-- Header Section -->
     <div class="header">
+    <!-- Header Section -->
         <!-- Links -->
         <div class="navigation">
-            <a class="header" href="#">Home</a> | 
-            <a class="header" href="#">About Us</a> | 
-            <a class="header" href="#">Book Appointment</a> | 
-            <a class="header" href="#">Contact</a>
+            <a href="#">Home</a> | 
+            <a href="#">About Us</a> | 
+            <a href="#">Book Appointment</a> | 
+            <a href="#">Contact</a>
         </div>
 
         <!-- Logo -->
@@ -32,17 +32,84 @@
          </div>
     </div>
 
+
     <!-- Main Section -->
     <div class="main">
-        <h1>Welcome to Diella's Beauty</h1>
+        <h1>Welcome to Diella's Beauty Salon</h1>
         <p>Your destination for enhancing your beauty with premium care and style.</p>
         <button>Book an Appointment</button>
     </div>
 
+    <div class="line"></div>
+
+    <!-- Services Section -->
+
+    <div class="services">
+        <h1 class="services">Our Services</h1>
+
+        <div class="service_options_container">
+            <button class="service_options"><a href="#hair">Hair</a></button>
+            <button class="service_options"><a href="#nails">Nails</a></button>
+            <button class="service_options"><a href="#makeup">Makeup</a></button>
+            <button class="service_options"><a href="#skincare">Skincare</a></button>
+        </div>
+
+        <!-- Hair -->
+        <div class="service" id="hair">
+            <div class="service_text">
+                <h1 class="service">Hair</h1>
+                <p class="service">
+                    Transform your look with our expert haircuts, styling, and coloring services. From simple trims to stunning updos, we bring your vision to life.
+                </p>
+            </div>
+
+            <img src="images/hair.jpg" class="service">
+        </div>
+
+        <!-- Nails -->
+        <div class="service" id="nails">
+            <div class="service_text">
+                <h1 class="service">Nails</h1>
+                <p class="service">
+                    Pamper yourself with our manicures, pedicures, and nail art. Enjoy flawless, polished nails that leave a lasting impression.
+                </p>
+            </div>
+
+            <img src="images/nails.jpg" class="service">
+        </div>
+
+        <!-- Makeup -->
+        <div class="service" id="makeup">
+            <div class="service_text">
+                <h1 class="service">Makeup</h1>
+                <p class="service">
+                    Enhance your natural beauty with our professional makeup for any occasion. Whether subtle or bold, we’ll create the perfect look for you.
+                </p>
+            </div>
+
+            <img src="images/makeup.jpg" class="service">
+        </div>
+
+        <!-- Skincare -->
+        <div class="service" id="skincare">
+            <div class="service_text">
+                <h1 class="service">Skincare</h1>
+                <p class="service">
+                    Revitalize your skin with our personalized facials and advanced treatments. We’re here to help you achieve a healthy, radiant glow.
+                </p>
+            </div>
+
+            <img src="images/skincare.jpg" class="service">
+        </div>
+    </div>
+
+    <div class="line"></div>
+
+
     <!-- Copyright Footer -->
      <div class="footer">
         <p>
-            &copy; Diella's Beauty. All rights reserved 2024
+            &copy; 2024 Diella's Beauty Salon. All rights reserved.
         </p>
      </div>
 </body>
