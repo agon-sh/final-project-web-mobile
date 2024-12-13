@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="makeup_images/logo.png">
+
+    <title>Diella's Beauty Salon</title>
+    <link rel="stylesheet" href="makeup.css">
+    <!-- Code created by Diella Doli and has not been copied from other sources-->
+    
+</head>
+<body>
+
+    <!-- Header Section -->
+
+    <div class="header">
+
+            <div class="navigation">
+                <a href="#">Home</a> | 
+                <a href="#">About Us</a> | 
+                <a href="#">Book Appointment</a> | 
+                <a href="#">Contact</a>
+            </div>
+
+             <div class="logo">
+                <img src="makeup_images/logo.png" class="logo">
+             </div>
+            
+    </div>
+
+    <header>
+        <h1>Diella's Beauty Studio</h1>
+        <p>Explore our diverse range of makeup styles designed to make you feel confident and beautiful for any occasion.</p>
+    </header>
+
+  <!-- Modal for Fullscreen Image -->
+  <div id="myModal" class="modal" style="display: none;">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+    <img id="modalImage" src="" alt="Modal Makeup Image" style="max-width: 100%; max-height: 80%; display: block; margin: 0 auto;">
+    <div id="makeupTitle" style="text-align: center; color: white; font-size: 24px; margin-top: 10px;"></div>
+    <div id="product-list-container"></div>
+    <button class="next" onclick="changeImage(1)">&#10095;</button>
+  </div>
+
+  <!-- Makeup Section -->
+  <section class="makeup-section">
+
+    <div class="makeup-gallery">
+        <div class="makeup-item" data-category="bridal">
+            <img src="makeup_images/bridalmakeup.jpg" alt="Bridal Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Bridal Makeup</h3>
+            <p>Elegant and radiant styles to make your special day unforgettable.</p>
+        </div>
+        
+        <div class="makeup-item" data-category="natural">
+            <img src="makeup_images/naturalmakeup.jpg" alt="Natural Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Natural Makeup</h3>
+            <p>Light and fresh looks that enhance your natural beauty.</p>
+        </div>
+        
+        <div class="makeup-item" data-category="glam">
+            <img src="makeup_images/glammakeup.jpg" alt="Glam Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Glam Makeup</h3>
+            <p>Bold and glamorous styles to make you stand out.</p>
+        </div>
+        
+        <div class="makeup-item" data-category="editorial">
+            <img src="makeup_images/editorialmakeup1.jpg" alt="Editorial Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Editorial Makeup</h3>
+            <p>Creative and artistic looks for magazine-worthy photoshoots.</p>
+        </div>
+        
+        <div class="makeup-item" data-category="prom">
+            <img src="makeup_images/prommakeup.jpg" alt="Prom Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Prom Makeup</h3>
+            <p>Perfect looks for an unforgettable night of elegance.</p>
+        </div>
+        
+        <div class="makeup-item" data-category="halloween">
+            <img src="makeup_images/halloweenmakeup.jpg" alt="Halloween Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Halloween Makeup</h3>
+            <p>Spooky and fun looks for your Halloween celebrations.</p>
+        </div>
+    </div>
+  </section>
+
+
+  <script>
+    // Get all images in the makeup items
+const images = document.querySelectorAll('.makeup-item img');
+const modal = document.getElementById("myModal");
+const modalImage = document.getElementById("modalImage");
+const productListContainer = document.getElementById("product-list-container");
+let currentIndex = 0;
+
+// Add titles to the imageList array
+const imageList = [
+    { src: "makeup_images/bridalmakeup.jpg", products: ["All Hours Foundation - YSL", "Soft Pinch Liquid Blush - Rare Beauty", "Faux Filter Concealer - Huda Beauty", "Translucent Loose Setting Powder - Laura Mercier", "Honey Love Matte Lipstick - MAC"], title: "Bridal Makeup" },
+    { src: "makeup_images/naturalmakeup.jpg", products: ["Luminous Silk Foundation - Giorgio Armani", "Radiant Creamy Concealer - NARS", "Cheek to Chic Blush - Charlotte Tilbury", "Ambient Lighting Powder - Hourglass", "Addict Lip Glow - Dior"], title: "Natural Makeup" },
+    { src: "makeup_images/glammakeup.jpg", products: ["Double Wear Stay-in-Place Foundation - Estée Lauder", "Glam Palette - Natasha Denona", "Shade and Illuminate Palette - Tom Ford", "Lash Clash Extreme Volume Mascara - YSL", "MatteTrance Lipstick - Pat McGrath Labs"], title: "Glam Makeup" },
+    { src: "makeup_images/editorialmakeup1.jpg", products: ["Studio Radiance Face and Body Foundation - MAC", "Mothership V: Bronze Seduction Palette - Pat McGrath Labs", "Lightwork Highlight Palette - Danessa Myricks", "Rouge Satin Lipstick - Hermès", "Aqua Resist Color Ink - Make Up For Ever"], title: "Editorial Makeup" },
+    { src: "makeup_images/prommakeup.jpg", products: ["Forever Skin Glow Foundation - Dior", "Rose Quartz Eyeshadow Palette - Huda Beauty", "Rock 'n' Kohl Eyeliner - Charlotte Tilbury", "Contraste Powder Blush Joues - Chanel", "Rouge Volupté Shine Lipstick Balm - YSL"], title: "Prom Makeup" },
+    { src: "makeup_images/halloweenmakeup.jpg", products: ["TV Paint Stick - Kryolan", "Norvina Pro Pigment Palette Vol. 3 - Anastasia Beverly Hills", "Flypencil Longwear Pencil Eyeliner - Fenty Beauty", "Flash Color Palette - Make Up For Ever", "Heavy Metal Glitter Gel - Urban Decay"], title: "Halloween Makeup" }
+];
+
+// Function to update modal title
+function updateMakeupTitle(index) {
+    const makeupTitle = document.getElementById("makeupTitle");
+    makeupTitle.textContent = imageList[index].title;
+}
+
+// Update modal content (image and title)
+function updateModalContent(index) {
+    modalImage.src = imageList[index].src;
+    updateProductList(index);
+    updateMakeupTitle(index);
+}
+
+// Update event listener for opening modal
+images.forEach((image, index) => {
+    image.addEventListener("click", function() {
+        modal.style.display = "block"; // Show the modal
+        currentIndex = index;
+        updateModalContent(currentIndex); // Update the modal content
+    });
+});
+
+// Update modal navigation function
+function changeImage(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = imageList.length - 1;
+    if (currentIndex >= imageList.length) currentIndex = 0;
+    updateModalContent(currentIndex); // Update the modal content
+}
+
+
+// Function to update product list in the modal
+function updateProductList(index) {
+    const products = imageList[index].products;
+    productListContainer.innerHTML = '<ul>' + products.map(product => `<li>${product}</li>`).join('') + '</ul>';
+}
+
+function closeModal() {
+    modal.style.display = "none"; // Hide the modal
+}
+  </script>
+
+
+    <script>
+        const makeupItems = document.querySelectorAll('.makeup-item');
+    
+        makeupItems.forEach(item => {
+            item.addEventListener('click', function() {
+                this.classList.toggle('clicked');
+            });
+        });
+    </script>
+
+    <section class="reviews-section">
+        <header>
+            <h2>Customer Reviews</h2>
+            <p>See what our clients say about our services!</p>
+        </header>
+        
+        <div class="reviews-list">
+
+            <!-- Reviews -->
+            <div class="review">
+                <h4>Dalina Canhasi</h4>
+                <p>"The bridal makeup service was amazing! It made me feel special on my special day."</p>
+            </div>
+
+            <div class="review">
+                <h4>Nesa Malazogu</h4>
+                <p>"The natural makeup was perfect for a day when you don't feel like doing your own makeup. I recommend it for everyone to try it at least once!"</p>
+            </div>
+
+                <div class="review">
+                    <h4>Amela Kajtazi</h4>
+                    <p>"Absolutely loved my bridal makeup! The team made me feel so beautiful and confident on my big day. This salon is the best!"</p>
+                </div>
+            
+                <div class="review">
+                    <h4>Dea Tahiraj</h4>
+                    <p>"Their natural makeup styles are to die for. I wanted something subtle for a family gathering, and they nailed it."</p>
+                </div>
+            
+                <div class="review">
+                    <h4>Lea Deshishku</h4>
+                    <p>"The glam makeup they did for my graduation ceremony was stunning. It lasted me all day and I looked good in every picture. (Shocker!!!)"</p>
+                </div>
+            
+                <div class="review">
+                    <h4>Tringa Gashi</h4>
+                    <p>"Had an editorial photoshoot, and the creative makeup blew me away. The attention to detail was incredible!"</p>
+                </div>
+
+        </div>
+
+        <!-- Review Form -->
+        <form class="review-form" onsubmit="addReview(event)">
+            <h3>Leave a Review</h3>
+            <label for="reviewerName">Name:</label>
+            <input type="text" id="reviewerName" name="reviewerName" required>
+            <label for="reviewText">Review:</label>
+            <textarea id="reviewText" name="reviewText" rows="4" required></textarea>
+            <button type="submit">Submit Review</button>
+        </form>
+    </section>
+    
+    <script>
+        function addReview(event) {
+            event.preventDefault();
+
+            // Get the form values
+            const name = document.getElementById('reviewerName').value;
+            const review = document.getElementById('reviewText').value;
+
+            // Create a new review element
+            const newReview = document.createElement('article');
+            newReview.classList.add('review');
+            newReview.innerHTML = `<h4>${name}</h4><p>"${review}"</p>`;
+
+            // Add the new review to the reviews list
+            const reviewsList = document.querySelector('.reviews-list');
+            reviewsList.appendChild(newReview);
+
+            // Clear the form
+            document.querySelector('.review-form').reset();
+        }
+    </script>
+
+
+     <!-- Footer -->
+      <div class="footer">
+         <p>
+             &copy; 2024 Diella's Beauty Salon. All rights reserved.
+         </p>
+      </div>
+   
+</body>
+</html> 
