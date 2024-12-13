@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makeup Gallery</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+  <!-- Modal for Fullscreen Image -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+    <img id="modalImage" class="modal-content" src="" alt="Fullsize image" />
+    <div id="product-list-container"></div>
+    <button class="next" onclick="changeImage(1)">&#10095;</button>
+  </div>
+
+  <!-- Makeup Section -->
+  <section class="makeup-section">
+    <header>
+        <h2>What we have to offer you!</h2>
+        <p>Explore our diverse range of makeup styles designed to make you feel confident and beautiful for any occasion.</p>
+    </header>
+
+    <div class="makeup-gallery">
+        <article class="makeup-item" data-category="bridal">
+            <img src="bridalmakeup.jpg" alt="Bridal Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Bridal Makeup</h3>
+            <p>Elegant and radiant styles to make your special day unforgettable.</p>
+        </article>
+        
+        <article class="makeup-item" data-category="natural">
+            <img src="naturalmakeup.jpg" alt="Natural Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Natural Makeup</h3>
+            <p>Light and fresh looks that enhance your natural beauty.</p>
+        </article>
+        
+        <article class="makeup-item" data-category="glam">
+            <img src="glammakeup.jpg" alt="Glam Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Glam Makeup</h3>
+            <p>Bold and glamorous styles to make you stand out.</p>
+        </article>
+        
+        <article class="makeup-item" data-category="editorial">
+            <img src="editorialmakeup.jpg" alt="Editorial Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Editorial Makeup</h3>
+            <p>Creative and artistic looks for magazine-worthy photoshoots.</p>
+        </article>
+        
+        <article class="makeup-item" data-category="prom">
+            <img src="prommakeup.jpg" alt="Prom Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Prom Makeup</h3>
+            <p>Perfect looks for an unforgettable night of elegance.</p>
+        </article>
+        
+        <article class="makeup-item" data-category="halloween">
+            <img src="halloweenmakeup.jpg" alt="Halloween Makeup" class="hover-image" loading="lazy">
+            <div class="hover-text">Click to see the products used in this look.</div>
+            <h3>Halloween Makeup</h3>
+            <p>Spooky and fun looks for your Halloween celebrations.</p>
+        </article>
+    </div>
+  </section>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" style="display: none;">↑</button>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const images = document.querySelectorAll('.makeup-item img');
+        const modal = document.getElementById("myModal");
+        const modalImage = document.getElementById("modalImage");
+        const productListContainer = document.getElementById("product-list-container");
+        let currentIndex = 0;
+
+        // List of products and images
+        const imageList = [
+            { src: "bridalmakeup.jpg", products: ["All Hours Foundation - YSL", "Soft Pinch Liquid Blush - Rare Beauty", "Faux Filter Concealer - Huda Beauty", "Translucent Loose Setting Powder - Laura Mercier", "Honey Love Matte Lipstick - MAC"] },
+            { src: "naturalmakeup.jpg", products: ["Luminous Silk Foundation - Giorgio Armani", "Radiant Creamy Concealer - NARS", "Cheek to Chic Blush - Charlotte Tilbury", "Ambient Lighting Powder - Hourglass", "Addict Lip Glow - Dior"] },
+            { src: "glammakeup.jpg", products: ["Double Wear Stay-in-Place Foundation - Estée Lauder", "Glam Palette - Natasha Denona", "Shade and Illuminate Palette - Tom Ford", "Lash Clash Extreme Volume Mascara - YSL", "MatteTrance Lipstick - Pat McGrath Labs"] },
+            { src: "editorialmakeup.jpg", products: ["Studio Radiance Face and Body Foundation - MAC", "Mothership V: Bronze Seduction Palette - Pat McGrath Labs", "Lightwork Highlight Palette - Danessa Myricks", "Rouge Satin Lipstick - Hermès", "Aqua Resist Color Ink - Make Up For Ever"] },
+            { src: "prommakeup.jpg", products: ["Forever Skin Glow Foundation - Dior", "Rose Quartz Eyeshadow Palette - Huda Beauty", "Rock 'n' Kohl Eyeliner - Charlotte Tilbury", "Contraste Powder Blush Joues - Chanel", "Rouge Volupté Shine Lipstick Balm - YSL"] },
+            { src: "halloweenmakeup.jpg", products: ["TV Paint Stick - Kryolan", "Norvina Pro Pigment Palette Vol. 3 - Anastasia Beverly Hills", "Flypencil Longwear Pencil Eyeliner - Fenty Beauty", "Flash Color Palette - Make Up For Ever", "Heavy Metal Glitter Gel - Urban Decay"] }
+        ];
+
+        // Initially hide the modal
+        modal.style.display = "none";
+
+        // Open modal and display corresponding image and products
+        images.forEach((image, index) => {
+            image.addEventListener("click", function() {
+                modal.style.display = "block";  // This should only happen when the image is clicked
+                currentIndex = index;
+                modalImage.src = imageList[currentIndex].src;
+                updateProductList(currentIndex);
+            });
+        });
+
+        // Update product list in the modal
+        function updateProductList(index) {
+            const products = imageList[index].products;
+            productListContainer.innerHTML = '<ul>' + products.map(product => `<li>${product}</li>`).join('') + '</ul>';
+        }
+
+        // Close the modal
+        function closeModal() {
+            modal.style.display = "none";  // Hide modal
+        }
+
+        // Change the modal image (next/prev)
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = imageList.length - 1;
+            if (currentIndex >= imageList.length) currentIndex = 0;
+            modalImage.src = imageList[currentIndex].src;
+            updateProductList(currentIndex);
+        }
+
+        // Scroll to top button functionality
+        const scrollToTopButton = document.querySelector('.scroll-to-top');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {          
+                scrollToTopButton.style.display = "block";
+            } else {
+                scrollToTopButton.style.display = "none";
+            }
+        };
+
+        // Scroll to the top of the page
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+</script>
+
+
+
+
+
+    <script>
+        const makeupItems = document.querySelectorAll('.makeup-item');
+    
+        makeupItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Toggle the clicked class
+                this.classList.toggle('clicked');
+            });
+        });
+    </script>
+    <section class="reviews-section">
+        <header>
+            <h2>Customer Reviews</h2>
+            <p>See what our clients say about our services!</p>
+        </header>
+        
+        <div class="reviews-list">
+            <!-- Placeholder reviews -->
+            <article class="review">
+                <h4>Dalina Canhasi</h4>
+                <p>"I loved the bridal makeup service! It made my day extra special."</p>
+            </article>
+            <article class="review">
+                <h4>Nesa Malazogu</h4>
+                <p>"The natural makeup was perfect for my photoshoot. Highly recommend!"</p>
+            </article>
+            <div class="reviews-list">
+                <!-- Review 1 -->
+                <div class="review">
+                    <h4>Amela Kajtazi</h4>
+                    <p>"Absolutely loved my bridal makeup! The team made me feel so beautiful and confident on my big day. Highly recommend them!"</p>
+                </div>
+            
+                <!-- Review 2 -->
+                <div class="review">
+                    <h4>Dea Tahiraj</h4>
+                    <p>"Their natural makeup styles are top-notch. I wanted something subtle for a family gathering, and they nailed it perfectly."</p>
+                </div>
+            
+                <!-- Review 3 -->
+                <div class="review">
+                    <h4>Lea Deshishku</h4>
+                    <p>"The glam makeup they did for my friend's wedding was stunning. It lasted all night and looked amazing in every photo."</p>
+                </div>
+            
+                <!-- Review 4 -->
+                <div class="review">
+                    <h4>Tringa Gashi</h4>
+                    <p>"Had an editorial photoshoot, and the creative makeup blew me away. The artistry and attention to detail were incredible!"</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Review Form -->
+        <form class="review-form" onsubmit="addReview(event)">
+            <h3>Leave a Review</h3>
+            <label for="reviewerName">Name:</label>
+            <input type="text" id="reviewerName" name="reviewerName" required>
+            <label for="reviewText">Review:</label>
+            <textarea id="reviewText" name="reviewText" rows="4" required></textarea>
+            <button type="submit">Submit Review</button>
+        </form>
+    </section>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+
+    <!-- JavaScript -->
+    <script>
+        function addReview(event) {
+            event.preventDefault();
+
+            // Get the form values
+            const name = document.getElementById('reviewerName').value;
+            const review = document.getElementById('reviewText').value;
+
+            // Create a new review element
+            const newReview = document.createElement('article');
+            newReview.classList.add('review');
+            newReview.innerHTML = `<h4>${name}</h4><p>"${review}"</p>`;
+
+            // Add the new review to the reviews list
+            const reviewsList = document.querySelector('.reviews-list');
+            reviewsList.appendChild(newReview);
+
+            // Clear the form
+            document.querySelector('.review-form').reset();
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+   
+</body>
+</html>
